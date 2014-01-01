@@ -1,7 +1,7 @@
 mewsh
 =====
 
-mewsh is a MEdiaWiki SHell.
+**mewsh** is a MEdiaWiki SHell.
 
 mewsh is under development and is very much alpha now.
 
