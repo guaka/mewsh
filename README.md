@@ -7,7 +7,7 @@ mewsh is under development and is very much alpha now.
 
 
 Inspired by [drush](http://drush.org/) or
-[wp-cli](http://wp-cli.org/), which should have been called worsh.
+[wp-cli](http://wp-cli.org/), which should have been called [worsh](http://github.com/guaka/worsh) ;)
 
 You might wonder, what's the use? But if you've ever used drush or
 wp-cli it'll be immediately clear to you.
