@@ -15,6 +15,8 @@ wp-cli it'll be immediately clear to you.
 
 ## Installation
 
+Try a symlink to mewsh.php in `/usr/local/bin` for now.
+
 
 ## Wanna help?
 
