@@ -20,8 +20,8 @@ Try a symlink to mewsh.php in `/usr/local/bin` for now.
 
 ## Wanna help?
 
-You're very welcome!  Just jump in, start adding issues and sending in
-pull requests.
+You're very welcome!  Just jump in, start [adding issues](https://github.com/guaka/mewsh/issues/new) 
+and sending in pull requests.
 
 ## Who?
 
