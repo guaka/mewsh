@@ -6,7 +6,7 @@ mewsh
 mewsh is under development and is very much alpha now.
 
 
-Inspired by [drush](http://drush.org/) and
+Inspired by [drush](http://drush.org/) or
 [wp-cli](http://wp-cli.org/), which should have been called worsh.
 
 You might wonder, what's the use? But if you've ever used drush or
