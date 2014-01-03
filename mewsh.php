@@ -23,7 +23,6 @@ Some useful commands:
 
 ";
   print $description . "\n";
-
   show_maintenance_commands();
 }
 
@@ -59,7 +58,18 @@ function show_maintenance_commands() {
 }
 
 
-find_installation();
+
+$options = (getopt('d::h::'));
+var_dump($options);
+exit();
+
+if (array_key_exists($options, 'd')) {
+  $mewDir = $options['d'];
+} else {
+  find_installation();
+}
+
+
 
 if (count($argv) < 2) {
   help();
