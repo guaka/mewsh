@@ -21,10 +21,13 @@ Some useful commands:
     mewsh update             # Update MediaWiki database
     mewsh getText Main_Page  # Get the contents of the main page.
 
+
 ";
   print $description . "\n";
   show_maintenance_commands();
 }
+
+
 
 function find_installation() {
   global $mewDir;
@@ -58,6 +61,7 @@ function find_installation() {
   }
 }
 
+
 function show_maintenance_commands() {
   // show contents of maintenance/
   // look for pywiki otherwise and show those contents
@@ -71,24 +75,28 @@ function show_maintenance_commands() {
 
 
 
-$options = (getopt('d::h::'));
-var_dump($options);
-exit();
+$options = (getopt('d::h::c::'));
 
-if (array_key_exists($options, 'd')) {
+
+
+if (array_key_exists('d', $options)) {
   $mewDir = $options['d'];
+  chdir($mewDir);
 } else {
   find_installation();
 }
 
+if (array_key_exists('c', $options)) {
+  $cmd = $options['c'];
+}
 
 
-if (count($argv) < 2) {
+if (!$cmd) {
   help();
   exit();
 } else {
 
-  $cmd = $argv[1];
+  // $cmd = $argv[1];
   if (strstr($cmd, '.php') != '.php') {
     $cmd .= '.php';
   }
