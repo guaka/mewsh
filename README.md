@@ -1,13 +1,13 @@
 mewsh
 =====
 
-mewsh is a MEdiaWiki SHell.
+**mewsh** is a MEdiaWiki SHell.
 
 mewsh is under development and is very much alpha now.
 
 
-Inspired by [drush](http://drush.org/) and
-[wp-cli](http://wp-cli.org/), which should have been called worsh.
+Inspired by [drush](http://drush.org/) or
+[wp-cli](http://wp-cli.org/), which should have been called [worsh](http://github.com/guaka/worsh) ;)
 
 You might wonder, what's the use? But if you've ever used drush or
 wp-cli it'll be immediately clear to you.
@@ -15,11 +15,13 @@ wp-cli it'll be immediately clear to you.
 
 ## Installation
 
+Try a symlink to mewsh.php in `/usr/local/bin` for now.
+
 
 ## Wanna help?
 
-You're very welcome!  Just jump in, start adding issues and sending in
-pull requests.
+You're very welcome!  Just jump in, start [adding issues](https://github.com/guaka/mewsh/issues/new) 
+and sending in pull requests.
 
 ## Who?
 

@@ -27,6 +27,7 @@ Some useful commands:
 }
 
 function find_installation() {
+  global $mewDir;
   $cwd = getcwd() . '/';
   $pieces = explode('/', $cwd);
   print $cwd . "\n";
@@ -40,10 +41,21 @@ function find_installation() {
     }
     $up .= '../';
   }
-  if (!$found) {
-    echo "No MediaWiki installation found.\n";
+  if (file_exists('wiki/' . 'LocalSettings.php')) {
+    chdir ($cwd . 'wiki');
+    $found = true;
+  }
+  if (file_exists('w/' . 'LocalSettings.php')) {
+    chdir ($cwd . 'w');
+    $found = true;
   }
 
+  if (!$found) {
+    echo "No MediaWiki installation found. mewsh might be able to install it for you one day.\n";
+  } else {
+    $mewDir = getcwd();
+    return $mewDir;
+  }
 }
 
 function show_maintenance_commands() {
