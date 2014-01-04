@@ -64,13 +64,17 @@ function find_installation() {
   }
 }
 
+function fileIsPhp($f) {
+  return substr($f, -4) == '.php';
+}
+
 
 function show_maintenance_commands() {
   // show contents of maintenance/
   // look for pywiki otherwise and show those contents
   $s = scandir('maintenance');
   foreach ($s as $f) {
-    if (substr($f, -4) == '.php') {
+    if (fileIsPhp($f)) {
       print str_replace('.php', '', $f) . "\t";
     }
   }

@@ -15,28 +15,50 @@ $mewOptions->option()
     ->describedAs('Command');
 
 $mewOptions->option('h')
-    ->aka('host')
-    ->describedAs('Hostname');
+    ->aka('uri')
+    ->describedAs('URI');
 
-$mewOptions->option('d')
-    ->aka('dir')
-    ->describedAs('Directory');
+$mewOptions->option('r')
+    ->aka('root')
+    ->describedAs('Root directory');
 
 
-if ($mewOptions['host']) {
-  $_SERVER['HTTP_HOST'] = $mewOptions['host'];
+
+
+// Start doing something with the options
+
+if (file_exists($_SERVER['HOME'] . '/.mewsh/aliases.mewshrc.php')) {
+  require_once $_SERVER['HOME'] . '/.mewsh/aliases.mewshrc.php';
+} else {
+  print 'no defaults?';
 }
 
-if ($mewOptions['dir']) {
-  $mewDir = $mewOptions['dir'];
-  chdir($mewDir);
+$cmdOptNumber = 0;
+if (substr($mewOptions[0], 0, 1) == '@') {
+  $alias = substr($mewOptions[0], 1);
+  $cmdOptNumber++;
 }
+
+$cmd = $mewOptions[$cmdOptNumber] ?: false;
+
+
+
+function aliasOrOption($key) {
+  global $alias, $aliases;
+  return isset($alias) ? $aliases[$alias][$key] : $mewOptions[$key];
+}
+
+
+$_SERVER['HTTP_HOST'] = aliasOrOption('uri'); // @todo: only get the hostname, uri might be more than that
+
+$mewDir = aliasOrOption('root');
+chdir($mewDir);
+
 if (!mewExists()) {
   find_installation();
 }
 
 
-$cmd = $mewOptions[0] ?: false;
 
 if (!$cmd) {
   help();
@@ -44,7 +66,7 @@ if (!$cmd) {
 } else {
 
   // $cmd = $argv[1];
-  if (strstr($cmd, '.php') != '.php') {
+  if (!fileIsPhp($cmd)) {
     $cmd .= '.php';
   }
   $argv = array_slice($argv, 1);
