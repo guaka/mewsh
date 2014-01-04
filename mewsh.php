@@ -6,90 +6,41 @@
  */
 
 
-function help() {
-  $description = "mewsh is a MEdiaWiki SHell
+require_once 'vendor/autoload.php';
+require_once 'helpers.php';
 
-http://github.com/guaka/mewsh
+$mewOptions = new Commando\Command();
 
-This is still in a proof of concept phase but it's expected to quickly
-become a useful and versatile tool. It is making MediaWiki's
-maintenance/ directory more accessible and also going to provide
-access to Pywikipediabot.
+$mewOptions->option()
+    ->describedAs('Command');
 
-Some useful commands:
+$mewOptions->option('h')
+    ->aka('host')
+    ->describedAs('Hostname');
 
-    mewsh update             # Update MediaWiki database
-    mewsh getText Main_Page  # Get the contents of the main page.
+$mewOptions->option('d')
+    ->aka('dir')
+    ->describedAs('Directory');
 
 
-";
-  print $description . "\n";
-  show_maintenance_commands();
+if ($mewOptions['host']) {
+  $_SERVER['HTTP_HOST'] = $mewOptions['host'];
 }
 
-
-
-function find_installation() {
-  global $mewDir;
-  $cwd = getcwd() . '/';
-  $pieces = explode('/', $cwd);
-  print $cwd . "\n";
-  $up = '';
-  $found = false;
-  for ($i = 0; $i < count($pieces)-2; $i++) {
-    if (file_exists($up . 'LocalSettings.php')) {
-      chdir($cwd . $up);
-      $found = true;
-      break;
-    }
-    $up .= '../';
-  }
-  if (file_exists('wiki/' . 'LocalSettings.php')) {
-    chdir ($cwd . 'wiki');
-    $found = true;
-  }
-  if (file_exists('w/' . 'LocalSettings.php')) {
-    chdir ($cwd . 'w');
-    $found = true;
-  }
-
-  if (!$found) {
-    echo "No MediaWiki installation found. mewsh might be able to install it for you one day.\n";
-  } else {
-    $mewDir = getcwd();
-    return $mewDir;
-  }
-}
-
-
-function show_maintenance_commands() {
-  // show contents of maintenance/
-  // look for pywiki otherwise and show those contents
-  $s = scandir('maintenance');
-  foreach ($s as $f) {
-    if (strstr($f, '.php') == '.php') {
-      print $f . "\n";
-    }
-  }
-}
-
-
-
-$options = (getopt('d::h::c::'));
-
-
-
-if (array_key_exists('d', $options)) {
-  $mewDir = $options['d'];
+if ($mewOptions['dir']) {
+  $mewDir = $mewOptions['dir'];
   chdir($mewDir);
+  //TODO: something like... if (!file_exists('LocalSettings.php')) {
+  //  find_installation();
+  //}
 } else {
   find_installation();
 }
 
-if (array_key_exists('c', $options)) {
-  $cmd = $options['c'];
-}
 
+if ($mewOptions[0]) {
+  $cmd = $mewOptions[0];
+}
 
 if (!$cmd) {
   help();
