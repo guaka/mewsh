@@ -30,17 +30,13 @@ if ($mewOptions['host']) {
 if ($mewOptions['dir']) {
   $mewDir = $mewOptions['dir'];
   chdir($mewDir);
-  //TODO: something like... if (!file_exists('LocalSettings.php')) {
-  //  find_installation();
-  //}
-} else {
+}
+if (!mewExists()) {
   find_installation();
 }
 
 
-if ($mewOptions[0]) {
-  $cmd = $mewOptions[0];
-}
+$cmd = $mewOptions[0] ?: false;
 
 if (!$cmd) {
   help();

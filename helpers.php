@@ -25,6 +25,12 @@ Some useful commands:
 
 
 
+function mewExists($dir = '') {
+  return (file_exists($dir . 'LocalSettings.php'));
+} 
+
+
+
 function find_installation() {
   global $mewDir;
   $cwd = getcwd() . '/';
@@ -33,24 +39,25 @@ function find_installation() {
   $up = '';
   $found = false;
   for ($i = 0; $i < count($pieces)-2; $i++) {
-    if (file_exists($up . 'LocalSettings.php')) {
+    if (mewExists($up)) {
       chdir($cwd . $up);
       $found = true;
       break;
     }
     $up .= '../';
   }
-  if (file_exists('wiki/' . 'LocalSettings.php')) {
+  if (mewExists('wiki/')) {
     chdir ($cwd . 'wiki');
     $found = true;
   }
-  if (file_exists('w/' . 'LocalSettings.php')) {
+  if (mewExists('w/')) {
     chdir ($cwd . 'w');
     $found = true;
   }
 
   if (!$found) {
     echo "No MediaWiki installation found. mewsh might be able to install it for you one day.\n";
+    exit();
   } else {
     $mewDir = getcwd();
     return $mewDir;
@@ -64,7 +71,8 @@ function show_maintenance_commands() {
   $s = scandir('maintenance');
   foreach ($s as $f) {
     if (substr($f, -4) == '.php') {
-      print str_replace('.php', '', $f) . "\n";
+      print str_replace('.php', '', $f) . "\t";
     }
   }
+  print PHP_EOL;
 }
