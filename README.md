@@ -33,4 +33,4 @@ and sending in pull requests.
 
 ## Who?
 
-mewsh is being developed by [Kasper Souren](http://guaka.org/).
+mewsh is being developed by [Kasper Souren](http://kasper.re/).
