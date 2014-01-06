@@ -44,7 +44,6 @@ Some useful commands:
 
 ";
   print $description . "\n";
-  show_maintenance_commands();
 }
 
 
@@ -93,14 +92,3 @@ function fileIsPhp($f) {
 }
 
 
-function show_maintenance_commands() {
-  // show contents of maintenance/
-  // look for pywiki otherwise and show those contents
-  $s = scandir('maintenance');
-  foreach ($s as $f) {
-    if (fileIsPhp($f)) {
-      print str_replace('.php', '', $f) . "\t";
-    }
-  }
-  print PHP_EOL;
-}
