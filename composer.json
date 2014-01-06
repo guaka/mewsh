@@ -1,7 +1,4 @@
 {
-  "require": {
-    "nategood/commando": "*"
-  },
   "require": { 
     "corneltek/getoptionkit": "~1.2"
   }
