@@ -44,7 +44,7 @@ $cmd = $mewOptions[$cmdOptNumber] ?: false;
 
 
 function aliasOrOption($key) {
-  global $alias, $aliases;
+  global $alias, $aliases, $mewOptions;
   return isset($alias) ? $aliases[$alias][$key] : $mewOptions[$key];
 }
 
@@ -52,7 +52,9 @@ function aliasOrOption($key) {
 $_SERVER['HTTP_HOST'] = aliasOrOption('uri'); // @todo: only get the hostname, uri might be more than that
 
 $mewDir = aliasOrOption('root');
-chdir($mewDir);
+if ($mewDir) {
+  chdir($mewDir);
+}
 
 if (!mewExists()) {
   find_installation();
@@ -69,6 +71,6 @@ if (!$cmd) {
   if (!fileIsPhp($cmd)) {
     $cmd .= '.php';
   }
-  $argv = array_slice($argv, 1);
+  $argv = array_slice($argv, $cmdOptNumber + 1);
   include 'maintenance/' . $cmd;
 }
