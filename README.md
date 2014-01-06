@@ -20,10 +20,8 @@ Try
 
 ## Installation
 
-   composer install
+   Check `setup.sh`
 
-
-Try a symlink to mewsh.php in `/usr/local/bin` for now.
 
 
 ## Wanna help?
