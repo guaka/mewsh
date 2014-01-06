@@ -1,76 +1,47 @@
 #!/usr/bin/env php
 <?php
 
-/* mewsh is free software available under the GPL.
- * (c) 2014 Kasper Souren
- */
-
-
 require_once 'vendor/autoload.php';
+
+
 require_once 'helpers.php';
+require_once 'appSpecs.php';
 
-$mewOptions = new Commando\Command();
+$aliases = loadAliases();
 
-$mewOptions->option()
-    ->describedAs('Command');
 
-$mewOptions->option('h')
-    ->aka('uri')
-    ->describedAs('URI');
-
-$mewOptions->option('r')
-    ->aka('root')
-    ->describedAs('Root directory');
+$subcommands = array('maintenance','pybot', 'db'); // @todo refactor
+$options = appSpecs($argv, $subcommands);
 
 
 
-
-// Start doing something with the options
-
-if (file_exists($_SERVER['HOME'] . '/.mewsh/aliases.mewshrc.php')) {
-  require_once $_SERVER['HOME'] . '/.mewsh/aliases.mewshrc.php';
-} else {
-  print 'no defaults?';
-}
-
-$cmdOptNumber = 0;
-if (substr($mewOptions[0], 0, 1) == '@') {
-  $alias = substr($mewOptions[0], 1);
+$cmdOptNumber = 1;
+if (substr($options->arguments[1], 0, 1) == '@') {
+  $alias = substr($options->arguments[1], 1);
   $cmdOptNumber++;
+} else {
+  $alias = false;
 }
 
-$cmd = $mewOptions[$cmdOptNumber] ?: false;
-
-
-
-function aliasOrOption($key) {
-  global $alias, $aliases, $mewOptions;
-  return isset($alias) ? $aliases[$alias][$key] : $mewOptions[$key];
-}
-
+// Set environment based on what we have now
 
 $_SERVER['HTTP_HOST'] = aliasOrOption('uri'); // @todo: only get the hostname, uri might be more than that
-
 $mewDir = aliasOrOption('root');
 if ($mewDir) {
   chdir($mewDir);
 }
-
 if (!mewExists()) {
   find_installation();
 }
 
 
+function aliasOrOption($key) {
+  global $alias, $aliases, $mewOptions;
+  return $alias ? $aliases[$alias][$key] : $options->arguments[$key];
+}
 
-if (!$cmd) {
-  help();
-  exit();
-} else {
 
-  // $cmd = $argv[1];
-  if (!fileIsPhp($cmd)) {
-    $cmd .= '.php';
-  }
-  $argv = array_slice($argv, $cmdOptNumber + 1);
-  include 'maintenance/' . $cmd;
+
+if (in_array($options->arguments[$cmdOptNumber], $subcommands)) { // @todo FIX
+  require_once 'cmd.' . $options->arguments[$cmdOptNumber] . '.php';
 }

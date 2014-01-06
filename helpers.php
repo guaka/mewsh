@@ -2,6 +2,29 @@
 
 // @todo: refactor!
 
+function live_output_exec($cmd) {
+  
+  while (@ ob_end_flush()); // end all output buffers if any
+  
+  $proc = popen($cmd, 'r');
+  while (!feof($proc))  {
+    echo fread($proc, 4096);
+    @ flush();
+  }
+}
+
+// Start doing something with the options
+function loadAliases() {
+  if (file_exists($_SERVER['HOME'] . '/.mewsh/aliases.mewshrc.php')) {
+    require_once $_SERVER['HOME'] . '/.mewsh/aliases.mewshrc.php';
+  } else {
+    $aliases = array();
+    print 'no defaults?';
+  }
+  return $aliases;
+}
+
+
 function help() {
   $description = "mewsh is a MEdiaWiki SHell
 
@@ -14,8 +37,9 @@ access to Pywikipediabot.
 
 Some useful commands:
 
-    mewsh update             # Update MediaWiki database
-    mewsh getText Main_Page  # Get the contents of the main page.
+    mewsh db dump
+    mewsh maintenance update             # Update MediaWiki database
+    mewsh maintenance getText Main_Page  # Get the contents of the main page.
 
 
 ";
