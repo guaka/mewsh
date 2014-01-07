@@ -23,7 +23,7 @@ if (count($options->arguments) <= $cmdOptNumber + 1) {
   if (!fileIsPhp($cmd)) {
     $cmd .= '.php';
   }
-  if (file_exists($cmd)) {
+  if (file_exists('maintenance/' . $cmd)) {
     $argv = array_slice($argv, $cmdOptNumber + 1);
     include 'maintenance/' . $cmd;
   } else {

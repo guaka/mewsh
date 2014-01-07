@@ -54,6 +54,7 @@ if (!mewExists()) {
 }
 
 
+
 if (end($args) == 'cd') {
   // First hacky attempt at cmd aliases
   $args[] = 'var';
