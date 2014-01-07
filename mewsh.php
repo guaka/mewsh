@@ -8,7 +8,7 @@ require_once 'appSpecs.php';
 
 $aliases = loadAliases();
 
-$subcommands = array('maintenance','pybot', 'db'); // @todo refactor
+$subcommands = array('maintenance','pybot', 'db', 'var'); // @todo refactor
 $options = appSpecs($argv, $subcommands);
 $args = $options->arguments;
 
@@ -46,7 +46,12 @@ if (!mewExists()) {
 }
 
 
-
+if (end($args) == 'cd') {
+  // First hacky attempt at cmd aliases
+  $args[] = 'var';
+  $args[] = 'mewDir';
+  $cmdOptNumber++;
+}
 
 
 if (in_array($args[$cmdOptNumber], $subcommands)) { // @todo FIX
