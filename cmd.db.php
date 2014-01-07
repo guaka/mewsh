@@ -11,13 +11,17 @@ function db_help() {
 set_include_path(get_include_path() . PATH_SEPARATOR . $mewDir);
 define('MEDIAWIKI', 'mewsh');
 $IP = $mewDir;
-$wgVersion = '1.20';
+$wgVersion = '1.20'; // @todo: figure this out
 require_once 'LocalSettings.php';
+function wfProfileIn() {}
+function wfProfileOut() {}
 
 function mysql_params() {
   global $wgDBname, $wgDBuser, $wgDBpassword;
   return " $wgDBname -u $wgDBuser -p$wgDBpassword";
 }
+
+
 
 function db_dump($cmd) {
   live_output_exec("mysqldump " . mysql_params());
