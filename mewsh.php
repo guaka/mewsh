@@ -29,12 +29,15 @@ if (substr($args[1], 0, 1) == '@') {
 
 function aliasOrOption($key) {
   global $alias, $aliases, $args;
-  return $alias ? 
-    $aliases[$alias][$key] : 
-    (array_key_exists($key, $args) ? $args[$key] : false);
+  return $alias 
+    ? (array_key_exists($key, $aliases[$alias]) 
+       ? $aliases[$alias][$key] 
+       : false) 
+    : (array_key_exists($key, $args) ? $args[$key] : false);
 }
 
 // Set environment based on what we have now
+
 
 if ($remoteHost = aliasOrOption('remote-host')) {
   include 'remote-host.php';
