@@ -15,6 +15,9 @@ wp-cli it'll be immediately clear to you.
 
 Try
         mewsh --help
+
+
+Also see http://wiki.yt/en/Mewsh
            
 
 
