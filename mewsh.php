@@ -36,6 +36,11 @@ function aliasOrOption($key) {
 
 // Set environment based on what we have now
 
+if ($remoteHost = aliasOrOption('remote-host')) {
+  include 'remote-host.php';
+  exit();
+}
+
 $_SERVER['HTTP_HOST'] = aliasOrOption('uri'); // @todo: only get the hostname, uri might be more than that
 $mewDir = aliasOrOption('root');
 if ($mewDir) {
