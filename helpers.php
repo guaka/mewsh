@@ -26,7 +26,7 @@ function loadAliases() {
 
 
 function help() {
-  $description = "mewsh is a MEdiaWiki SHell
+  $description = "mewsh is a MediaWiki shell
 
 http://github.com/guaka/mewsh
 
