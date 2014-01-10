@@ -8,7 +8,7 @@ function db_help() {
 }
 
 
-require_once 'mw-setup.php';
+require_once 'mw-init.php';
 
 function mysql_params() {
   global $wgDBname, $wgDBuser, $wgDBpassword;

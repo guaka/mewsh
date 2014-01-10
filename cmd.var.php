@@ -1,6 +1,6 @@
 <?php
 
-require_once 'mw-setup.php';
+require_once 'mw-init.php';
 
 function var_help() {
   echo "Shows value of variables such as wgSitename";
