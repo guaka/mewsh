@@ -17,7 +17,7 @@ function mysql_params() {
 
 
 
-function db_dump($cmd) {
+function db_dump() {
   live_output_exec("mysqldump " . mysql_params());
 }
 
@@ -28,9 +28,9 @@ function db_cli() {
 }
 
 
-if (in_array('dump', $options->arguments)) {
+if (in_array('dump', $args)) {
   db_dump();
-} else if (in_array('cli', $options->arguments)) {
+} else if (in_array('cli', $args)) {
   db_cli();
 } else {
   db_help();

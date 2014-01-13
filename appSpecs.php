@@ -7,10 +7,16 @@ use GetOptionKit\ContinuousOptionParser;
 
 function appSpecs($argv, $subcommands) {
 
-// subcommand stack
+  // @todo: clean up and figure out how this works
+  
+  
+  // subcommand stack
   
   $specs = new OptionSpecCollection;
-  $spec_debug = $specs->add('d|debug');
+
+  $specs->add('u|uri');
+  $specs->add('r|root');
+  $spec_host = $specs->add('h|remote-host');
   $spec_verbose = $specs->add('v|verbose');
   $spec_verbose->description = 'verbose flag';
   
@@ -53,10 +59,13 @@ function appSpecs($argv, $subcommands) {
   $getopt->add( 'f|foo:=i' , 'option requires a integer value' );
   $getopt->add( 'f|foo:=s' , 'option requires a string value' );
   
+  $getopt->add( 'h|remote-host:' , 'host:' );
+  $getopt->add( 'r|root:'   , 'root directory' );
+  $getopt->add( 'u|uri:'   , 'uri' );
+
   $getopt->add( 'v|verbose' , 'verbose flag' );
-  $getopt->add( 'd|debug'   , 'debug flag' );
   
-  $result = $getopt->parse( array( 'program' , '-f' , 'foo value' , '-v' , '-d' ) );
+  // $result = $getopt->parse( array( 'program' , '-f' , 'foo value' , '-v' , '-d' ) );
   $result = $getopt->parse( $argv );
   
   $result->verbose;

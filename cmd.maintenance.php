@@ -14,17 +14,17 @@ function maintenance_help($filter = false) {
 }
 
 
-if (count($options->arguments) <= $cmdOptNumber + 1) {
+if (count($args) <= 2) {
   maintenance_help();
 
 } else {
 
-  $cmd = $options->arguments[$cmdOptNumber + 1];
+  $cmd = $args[3];
   if (!fileIsPhp($cmd)) {
     $cmd .= '.php';
   }
   if (file_exists('maintenance/' . $cmd)) {
-    $argv = array_slice($argv, $cmdOptNumber + 1);
+    $argv = array_slice($argv, 2);
     include 'maintenance/' . $cmd;
   } else {
     maintenance_help(str_replace('.php', '', $cmd));
