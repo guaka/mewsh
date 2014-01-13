@@ -12,8 +12,12 @@ $subcommands = array('maintenance','pybot', 'db', 'var'); // @todo refactor
 $options = appSpecs($argv, $subcommands);
 $args = $options->arguments;
 
+$args = array_filter($args, function($e) {
+    return !(strpos($e, 'mewsh') !== false);
+  });
 
-if (count($args) < 2) {
+
+if (!$args) {
   help();
   exit();
 }
@@ -76,9 +80,8 @@ if (end($args) == 'cd') {
   $args[] = 'mewDir';
 }
 
-foreach ($args as $arg) {
-  if (in_array($arg, $subcommands)) { // @todo FIX
-    require_once 'cmd.' . $arg . '.php';
-    break;
-  }
+$subcommand = array_shift($args);
+if (in_array($subcommand, $subcommands)) { // @todo FIX
+  require_once 'cmd.' . $subcommand . '.php';
+  break;
 }

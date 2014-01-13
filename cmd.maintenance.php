@@ -14,12 +14,12 @@ function maintenance_help($filter = false) {
 }
 
 
-if (count($args) <= 2) {
+if (!$args) {
   maintenance_help();
 
 } else {
 
-  $cmd = $args[3];
+  $cmd = array_shift($args);
   if (!fileIsPhp($cmd)) {
     $cmd .= '.php';
   }
